@@ -1,4 +1,4 @@
-package si.fri.rso.stationcatalog;
+package si.fri.rso.stationcatalog.models.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
