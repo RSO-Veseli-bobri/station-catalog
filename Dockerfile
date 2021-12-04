@@ -3,7 +3,7 @@ COPY ./ /app
 WORKDIR /app
 RUN mvn --show-version --update-snapshots --batch-mode clean package
 
-FROM adoptopenjdk:15-jre-hotspot
+FROM adoptopenjdk:17-jre-hotspot
 RUN mkdir /app
 WORKDIR /app
 COPY --from=build ./app/api/target/station-catalog-api-0.0.1-SNAPSHOT.jar /app
