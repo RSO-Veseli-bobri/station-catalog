@@ -1,9 +1,9 @@
-FROM maven:3.6.3-openjdk-15 AS build
+FROM maven:3.8.4-openjdk-17 AS build
 COPY ./ /app
 WORKDIR /app
-RUN mvn --show-version --update-snapshots --batch-mode clean package
+RUN mvn clean package -Dmaven.test.skip=true
 
-FROM adoptopenjdk:17-jre-hotspot
+FROM openjdk:17
 RUN mkdir /app
 WORKDIR /app
 COPY --from=build ./app/api/target/station-catalog-api-0.0.1-SNAPSHOT.jar /app
