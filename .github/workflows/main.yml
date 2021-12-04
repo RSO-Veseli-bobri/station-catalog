@@ -24,6 +24,13 @@ jobs:
     
       - name: Check Out Repo 
         uses: actions/checkout@v2
+        
+      - name: Get Time
+        id: time
+        uses: nanzm/get-time-action@v1.0
+        with:
+          timeZone: 1
+          format: 'YYYY-MM-DD-HH-mm-ss'
 
       - name: Login to Docker Hub
         uses: docker/login-action@v1
@@ -42,6 +49,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
+          tags: RSO-Veseli-bobri/station-catalog:${{ steps.time.outputs.time }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
