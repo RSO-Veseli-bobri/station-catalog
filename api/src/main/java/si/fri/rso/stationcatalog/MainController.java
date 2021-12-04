@@ -18,12 +18,15 @@ public class MainController {
     private StationService stationService;
 
     @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody String addNewUser (@RequestParam String name) {
+    public @ResponseBody String addNewUser (@RequestParam String owner, @RequestParam double lat, @RequestParam double lon) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
         Station n = new Station();
-        n.setName(name);
+        n.setOwner(owner);
+        n.setLat(lat);
+        n.setLon(lon);
+        n.setReserved(false);
         stationService.addStation(n);
         return "Saved";
     }
