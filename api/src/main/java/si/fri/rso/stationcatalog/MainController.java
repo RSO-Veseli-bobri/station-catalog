@@ -14,7 +14,7 @@ public class MainController {
     @Autowired
     private StationService stationService;
 
-    @GetMapping(path={})
+    @GetMapping("/")
     public ResponseEntity healthCheck(){
         return ResponseEntity.ok().build();
     }
