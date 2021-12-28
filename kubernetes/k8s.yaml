@@ -160,15 +160,15 @@ spec:
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
-              port: server
+              port: 8080
             initialDelaySeconds: 20
             periodSeconds: 3
-            readinessProbe:
-              httpGet:
-                path: /actuator/health/readiness
-                port: server
-              initialDelaySeconds: 20
-              periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 3
           securityContext:
             capabilities:
               drop:
