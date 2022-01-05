@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import si.fri.rso.stationcatalog.models.entities.Station;
+import si.fri.rso.stationcatalog.models.entities.StationObject;
 import si.fri.rso.stationcatalog.services.StationService;
 
 import java.util.concurrent.CompletableFuture;
@@ -15,6 +16,7 @@ import java.util.concurrent.CompletableFuture;
 @RestController // This means that this class is a Controller
 //@RequestMapping(path="/") // This means URL's start with /demo (after Application path)
 @RefreshScope
+@CrossOrigin(origins = "http://localhost:4200")
 public class MainController {
 
     @Value("${allowCreation:true}")
@@ -30,7 +32,7 @@ public class MainController {
 
     @PostMapping(path="/station/add") // Map ONLY POST Requests
     @ResponseBody
-    public ResponseEntity addNewStation (@RequestParam String owner, @RequestParam double lat, @RequestParam double lon) {
+    public ResponseEntity addNewStation (@RequestBody StationObject stationObject) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
@@ -38,9 +40,9 @@ public class MainController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         Station n = new Station();
-        n.setOwner(owner);
-        n.setLat(lat);
-        n.setLon(lon);
+        n.setOwner(stationObject.owner);
+        n.setLat(stationObject.lat);
+        n.setLon(stationObject.lon);
         n.setReserved(false);
         stationService.addStation(n);
         return ResponseEntity.ok().build();
