@@ -28,7 +28,7 @@ public class MainController {
 
     @PostMapping(path="/station/add") // Map ONLY POST Requests
     @ResponseBody
-    public ResponseEntity addNewUser (@RequestParam String owner, @RequestParam double lat, @RequestParam double lon) {
+    public ResponseEntity addNewStation (@RequestParam String owner, @RequestParam double lat, @RequestParam double lon) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
@@ -45,7 +45,7 @@ public class MainController {
     }
 
     @GetMapping(path="/station/all")
-    public @ResponseBody Iterable<Station> getAllUsers() {
+    public @ResponseBody Iterable<Station> getAllStations() {
         // This returns a JSON or XML with the users
         return stationService.getAllStations();
     }
