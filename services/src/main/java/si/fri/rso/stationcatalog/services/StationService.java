@@ -1,11 +1,14 @@
 package si.fri.rso.stationcatalog.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import si.fri.rso.stationcatalog.models.entities.Station;
 import si.fri.rso.stationcatalog.models.repositories.StationRepository;
+
+import java.util.concurrent.CompletableFuture;
 
 @Component
 public class StationService {
@@ -18,7 +21,9 @@ public class StationService {
         return stationRepository.save(s);
     }
 
-    public Iterable<Station> getAllStations(){
-        return stationRepository.findAll();
+    @Async
+    public CompletableFuture<Iterable<Station>> getAllStations(){
+        Iterable<Station> s = stationRepository.findAll();
+        return CompletableFuture.completedFuture(s);
     }
 }

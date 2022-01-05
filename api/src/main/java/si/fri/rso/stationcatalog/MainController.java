@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import si.fri.rso.stationcatalog.models.entities.Station;
 import si.fri.rso.stationcatalog.services.StationService;
 
+import java.util.concurrent.CompletableFuture;
+
 @RestController // This means that this class is a Controller
 //@RequestMapping(path="/") // This means URL's start with /demo (after Application path)
 @RefreshScope
@@ -46,7 +48,6 @@ public class MainController {
 
     @GetMapping(path="/station/all")
     public @ResponseBody Iterable<Station> getAllStations() {
-        // This returns a JSON or XML with the users
-        return stationService.getAllStations();
+        return stationService.getAllStations().join();
     }
 }
