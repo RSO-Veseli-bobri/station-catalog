@@ -82,6 +82,8 @@ public class MainController {
 
         String uri = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origins + "&destinations=" + destinations + "&key=" + api_key;
 
+        System.out.println(uri);
+
         String result = "";
         try {
             URL url = new URL(uri);
