@@ -82,8 +82,6 @@ public class MainController {
 
         String uri = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origins + "&destinations=" + destinations + "&key=" + api_key;
 
-        System.out.println(uri);
-
         String result = "";
         try {
             URL url = new URL(uri);
@@ -132,10 +130,10 @@ public class MainController {
                 num = end.size();
 
             for(int k = 0; k < num; k++) {
-                int smallest = response.rows[0].elements[0].distance.value;
+                int smallest = Integer.MAX_VALUE;
                 int index = 0;
                 for (int i = 0; i < response.rows[0].elements.length; i++) {
-                    if (response.rows[0].elements[i].distance.value < smallest) {
+                    if (response.rows[0].elements[i].distance.value <= smallest) {
                         if(!isAlreadyInList(endResult, end.get(i))) {
                             smallest = response.rows[0].elements[i].distance.value;
                             index = i;
@@ -152,7 +150,7 @@ public class MainController {
 
     private boolean isAlreadyInList(List<Station> list, Station s){
         for(int i = 0; i < list.size(); i++){
-            if(s == list.get(i)){
+            if(s.getId() == list.get(i).getId()){
                 return true;
             }
         }
