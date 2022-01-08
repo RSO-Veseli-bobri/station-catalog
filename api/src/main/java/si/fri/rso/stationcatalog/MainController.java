@@ -1,6 +1,8 @@
 package si.fri.rso.stationcatalog;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -29,6 +31,8 @@ import java.util.concurrent.CompletableFuture;
 @CrossOrigin(origins = "http://localhost:4200")
 public class MainController {
 
+    private static final Log LOGGER = LogFactory.getLog(MainController.class);
+
     @Value("${allowCreation:true}")
     private boolean canCreate;
 
@@ -48,6 +52,7 @@ public class MainController {
     public ResponseEntity addNewStation (@RequestBody StationObject stationObject) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
+        LOGGER.info("Entered addNewStation method");
         if(canCreate == false){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
@@ -58,11 +63,13 @@ public class MainController {
         n.setLon(stationObject.lon);
         n.setReserved(false);
         stationService.addStation(n);
+        LOGGER.info("Exited addNewStation method");
         return ResponseEntity.ok().build();
     }
 
     @GetMapping(path="/station/all")
     public @ResponseBody List<Station> getAllStations(@RequestParam double lat, @RequestParam double lon) {
+        LOGGER.info("Entered getAllStations method");
         Iterable<Station> s = stationService.getAllStations().join();
         Iterator<Station> iter = s.iterator();
 
@@ -142,8 +149,11 @@ public class MainController {
                 }
                 endResult.add(end.get(index));
             }
+            LOGGER.info("Exited getAllStations method");
             return endResult;
         }
+
+        LOGGER.error("Exited getAllStations method | api data error");
 
         return end;
     }
