@@ -6,11 +6,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import si.fri.rso.stationcatalog.models.entities.Station;
 import si.fri.rso.stationcatalog.models.entities.StationObject;
 import si.fri.rso.stationcatalog.services.StationService;
@@ -19,16 +17,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @RestController // This means that this class is a Controller
-//@RequestMapping(path="/") // This means URL's start with /demo (after Application path)
 @RefreshScope
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://frontend-t4vmtoqorq-ew.a.run.app")
 public class MainController {
 
     private static final Log LOGGER = LogFactory.getLog(MainController.class);
